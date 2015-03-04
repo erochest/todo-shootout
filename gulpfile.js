@@ -4,6 +4,17 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
+gulp.task('purescript', function() {
+    return (
+        gulp.src('src/**/*.purs')
+            .pipe($.purescript.psc({
+                output: 'main.js',
+                main: 'Main',
+            }))
+            .pipe(gulp.dest('app/scripts/'))
+            );
+});
+
 gulp.task('styles', function () {
   return gulp.src('app/styles/main.scss')
     .pipe($.plumber())
@@ -116,6 +127,7 @@ gulp.task('watch', ['connect'], function () {
 
   gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('bower.json', ['wiredep']);
+  gulp.watch('src/**/*.purs', ['purescript']);
 });
 
 gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function () {
