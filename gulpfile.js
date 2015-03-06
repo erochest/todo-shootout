@@ -6,10 +6,12 @@ var $ = require('gulp-load-plugins')();
 
 gulp.task('purescript', function() {
     return (
-        gulp.src('src/**/*.purs')
+        gulp.src(['src/**/*.purs',
+                  'bower_components/purescript-*/src/**/*.purs',
+                  'bower_components/purescript-*/src/**/*.purs.hs'])
             .pipe($.purescript.psc({
                 output: 'main.js',
-                main: 'Main',
+                main: true,
             }))
             .pipe(gulp.dest('app/scripts/'))
             );
